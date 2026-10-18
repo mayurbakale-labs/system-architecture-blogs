@@ -4,7 +4,7 @@ publishDate: 2026-10-14
 complexity: "Advanced"
 author: "Mayur Bakale"
 date: "2026-10-14"
-tags: ["Microservices", "Resilience4j", "MCP" "AI", "Java"]
+tags: ["Microservices", "Resilience4j", "MCP", "AI", "Java"]
 target_audience: "Lead AI Architects, Enterprise Engineers, and Principal Developers"
 status: "READY"
 ---
