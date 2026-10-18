@@ -1,6 +1,5 @@
 ---
 title: "Enterprise Agentic Guardrails: Architecting Termination Contracts, Trajectory Evaluation, and Tool Sandboxing"
-description: "Architecting deterministic termination contracts, multi-step trajectory evaluation benchmarks, and kernel-isolated tool sandboxing for enterprise agentic workflows."
 publishDate: 2026-10-15
 complexity: "Advanced"
 author: "Mayur Bakale"
