@@ -1,5 +1,6 @@
 ---
 title: "Enterprise Agentic Guardrails: Architecting Termination Contracts, Trajectory Evaluation, and Tool Sandboxing"
+description: "Production architecture guide for autonomous AI agents: implementing deterministic termination contracts, trajectory evaluation pipelines, and isolated tool sandboxing with Spring AI and MCP."
 publishDate: 2026-10-15
 complexity: "Advanced"
 author: "Mayur Bakale"

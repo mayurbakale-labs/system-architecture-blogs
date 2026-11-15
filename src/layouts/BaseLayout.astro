@@ -1,23 +1,146 @@
 ---
-// Base layout component for all pages
+// Base layout component with comprehensive SEO, Open Graph, Twitter Card, Canonical, and JSON-LD structured data support
 interface Props {
   title: string;
   description?: string;
+  canonicalURL?: string | URL;
+  type?: 'website' | 'article';
+  publishDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  tags?: string[];
+  complexity?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
-const { title, description = "Deep architectural blueprints and production code implementations." } = Astro.props;
+const {
+  title,
+  description = "Deep architectural blueprints, distributed systems patterns, and production code implementations for enterprise cloud-native and agentic AI systems by Mayur Bakale.",
+  canonicalURL,
+  type = 'website',
+  publishDate,
+  updatedDate,
+  author = "Mayur Bakale",
+  tags = ["System Design", "Enterprise Architecture", "Agentic AI", "Distributed Systems", "Java 21", "Spring AI", "Model Context Protocol"],
+  structuredData,
+  noindex = false,
+} = Astro.props;
+
+const siteName = "System Design & Enterprise Architecture | Mayur Bakale";
+const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/?$/, '') : 'https://mayurbakale-labs.github.io';
+
+// Ensure canonical URL is always an absolute, normalized URL with trailing slash
+const rawCanonical = canonicalURL
+  ? canonicalURL.toString()
+  : new URL(Astro.url.pathname.replace(/\/?$/, '/'), siteOrigin).toString();
+
+const ogImageUrl = new URL(`${baseUrl}og-cover.svg`, siteOrigin).toString();
+const rssUrl = new URL(`${baseUrl}rss.xml`, siteOrigin).toString();
+const sitemapUrl = new URL(`${baseUrl}sitemap.xml`, siteOrigin).toString();
+
+const robotsDirective = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
+const defaultWebSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteName,
+  "alternateName": "Mayur Bakale System Architecture Blogs",
+  "url": new URL(baseUrl, siteOrigin).toString(),
+  "description": description,
+  "inLanguage": "en-US",
+  "author": {
+    "@type": "Person",
+    "name": "Mayur Bakale",
+    "url": "https://github.com/mayurbakale-labs"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Mayur Bakale",
+    "url": "https://github.com/mayurbakale-labs"
+  }
+};
+
+const schemasToRender = structuredData
+  ? (Array.isArray(structuredData) ? structuredData : [structuredData])
+  : [defaultWebSiteSchema];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}favicon.svg`} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    {tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />}
+    <meta name="robots" content={robotsDirective} />
+    <meta name="googlebot" content={robotsDirective} />
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Canonical & Discovery Links -->
+    <link rel="canonical" href={rawCanonical} />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href={sitemapUrl} />
+    <link rel="alternate" type="application/rss+xml" title={siteName} href={rssUrl} />
+    <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+    <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.ico`} />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={rawCanonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={title} />
+
+    {type === 'article' && publishDate && (
+      <meta property="article:published_time" content={publishDate.toISOString()} />
+    )}
+    {type === 'article' && (updatedDate || publishDate) && (
+      <meta property="article:modified_time" content={(updatedDate || publishDate)!.toISOString()} />
+    )}
+    {type === 'article' && author && (
+      <meta property="article:author" content={author} />
+    )}
+    {type === 'article' && tags.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- JSON-LD Structured Data for Google Rich Results -->
+    {schemasToRender.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    <slot name="head" />
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
     <slot />
+
+    <footer class="border-t border-slate-200 bg-white mt-16">
+      <div class="max-w-3xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-500 font-mono">
+        <div>
+          <p class="font-semibold text-slate-700 font-sans text-sm">System Design &amp; Enterprise Architecture</p>
+          <p class="mt-1">By {author} • Production blueprints for Distributed Systems, Java 21 &amp; Agentic AI</p>
+        </div>
+        <nav aria-label="Footer navigation" class="flex flex-wrap items-center gap-4">
+          <a href={baseUrl} class="hover:text-blue-600 underline underline-offset-4">Articles</a>
+          <a href={`${baseUrl}rss.xml`} class="hover:text-blue-600 underline underline-offset-4">RSS Feed</a>
+          <a href={`${baseUrl}sitemap.xml`} class="hover:text-blue-600 underline underline-offset-4">Sitemap</a>
+          <a href="https://github.com/mayurbakale-labs/system-architecture-blogs" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 underline underline-offset-4">GitHub</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>

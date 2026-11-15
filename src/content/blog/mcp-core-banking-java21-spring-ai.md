@@ -1,5 +1,6 @@
 ---
 title: "Model Context Protocol (MCP) in Enterprise Production: Bridging Core Banking to Autonomous Agents with Java 21 and Spring AI"
+description: "Deep-dive architectural blueprint for building secure, rate-limited Model Context Protocol (MCP) servers in enterprise core banking using Java 21 Virtual Threads and Spring Boot."
 publishDate: 2026-10-05
 complexity: "Advanced"
 author: "Mayur Bakale"

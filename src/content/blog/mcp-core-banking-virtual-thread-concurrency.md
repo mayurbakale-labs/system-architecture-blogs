@@ -1,10 +1,11 @@
 ---
 title: "Model Context Protocol (MCP) in Enterprise Production: Bridging Core Banking to Autonomous Agents with Virtual Concurrency"
+description: "How to architect zero-trust Model Context Protocol (MCP) tool servers for autonomous banking agents with Java 21 Virtual Concurrency, non-blocking carrier unpinning, and Spring AI."
 publishDate: 2026-10-05
 complexity: "Advanced"
 author: "Mayur Bakale"
 date: "2026-10-05"
-tags: ["Agentic AI","Model Context Protocol","Virtual Threads","Distributed Systems","Virtual Threads","Enterprise Architecture"]
+tags: ["Agentic AI","Model Context Protocol","Virtual Threads","Distributed Systems","Spring AI","Enterprise Architecture"]
 target_audience: "Lead Cloud-Native Architects, Enterprise AI Engineers, and Principal Backend Developers"
 status: "REVISED_READY_FOR_REVIEW"
 ---

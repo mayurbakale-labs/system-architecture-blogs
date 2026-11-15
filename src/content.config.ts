@@ -7,11 +7,13 @@ const blogCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     publishDate: z.date(),
+    updatedDate: z.date().optional(),
     complexity: z.enum(['Intermediate', 'Advanced', 'Expert']),
     tags: z.array(z.string()),
-    author: z.string().optional(),
+    author: z.string().default('Mayur Bakale'),
+    target_audience: z.string().optional(),
   }),
 });
 

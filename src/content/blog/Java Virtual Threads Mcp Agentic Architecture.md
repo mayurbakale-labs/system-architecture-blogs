@@ -1,15 +1,14 @@
 ---
 title: "Architecting High-Throughput Agentic AI Gateways with Java 21+ Virtual Threads, Spring AI, and MCP"
+description: "Learn how to eliminate thread starvation in agentic AI microservices using Java 21+ Virtual Threads (JEP 444), Structured Concurrency, Resilience4j, Spring AI, and Model Context Protocol (MCP)."
 publishDate: 2026-10-14
 complexity: "Advanced"
 author: "Mayur Bakale"
 date: "2026-10-14"
-tags: ["Microservices", "Resilience4j", "MCP", "AI", "Java"]
+tags: ["Microservices", "Resilience4j", "MCP", "AI", "Java", "Virtual Threads", "Spring AI"]
 target_audience: "Lead AI Architects, Enterprise Engineers, and Principal Developers"
 status: "READY"
 ---
-
-# Architecting High-Throughput Agentic AI Gateways with Java 21+ Virtual Threads, Spring AI, and MCP
 
 ## Imperative Thread-Per-Request Models Exhaust OS Resources Under Agentic AI Workloads
 

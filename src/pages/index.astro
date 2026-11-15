@@ -1,5 +1,5 @@
 ---
-// Home page - lists all blog posts using the same layout/typography as the blog article pages
+// Home page - lists all blog posts with rich Blog/ItemList JSON-LD structured data for Google Search
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
@@ -8,35 +8,99 @@ import PostCard from '../components/PostCard.astro';
 let posts = [];
 try {
   posts = (await getCollection('blog')).sort((a, b) => {
-    const dateA = new Date(a.data?.publishDate || a.data?.date || '2026-01-01').getTime();
-    const dateB = new Date(b.data?.publishDate || b.data?.date || '2026-01-01').getTime();
+    const dateA = new Date(a.data?.publishDate || '2026-01-01').getTime();
+    const dateB = new Date(b.data?.publishDate || '2026-01-01').getTime();
     return dateB - dateA;
   });
 } catch (e) {
   posts = [];
 }
 
+const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/?$/, '') : 'https://mayurbakale-labs.github.io';
+const homeCanonicalURL = new URL(baseUrl, siteOrigin).toString();
+
 const displayPosts = posts.map((post) => ({
   slug: post.id,
   title: post.data?.title || post.id,
   date: post.data?.publishDate ? post.data.publishDate.toISOString().split('T')[0] : '2026-10-10',
+  publishDateIso: post.data?.publishDate ? post.data.publishDate.toISOString() : '2026-10-10T00:00:00.000Z',
   description: post.data?.description,
   complexity: post.data?.complexity || 'Advanced',
   tags: post.data?.tags || ['Architecture', 'Cloud Native'],
+  author: post.data?.author || 'Mayur Bakale',
 }));
+
+const allTags = Array.from(new Set(displayPosts.flatMap((p) => p.tags)));
+
+const pageTitle = "System Design & Enterprise Architecture | Mayur Bakale";
+const pageDescription = "Enterprise software architecture blueprints, distributed systems patterns, Java 21 Virtual Threads, Spring AI, and Model Context Protocol (MCP) engineering guides by Mayur Bakale.";
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": `${homeCanonicalURL}#blog`,
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": homeCanonicalURL,
+  "inLanguage": "en-US",
+  "author": {
+    "@type": "Person",
+    "name": "Mayur Bakale",
+    "url": "https://github.com/mayurbakale-labs"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Mayur Bakale",
+    "url": homeCanonicalURL
+  },
+  "blogPost": displayPosts.map((post) => ({
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.description,
+    "datePublished": post.publishDateIso,
+    "url": new URL(`${baseUrl}blog/${post.slug}/`, siteOrigin).toString(),
+    "author": {
+      "@type": "Person",
+      "name": post.author
+    },
+    "keywords": post.tags.join(', ')
+  }))
+};
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": displayPosts.map((post, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "url": new URL(`${baseUrl}blog/${post.slug}/`, siteOrigin).toString(),
+    "name": post.title
+  }))
+};
 ---
 
 <BaseLayout 
-  title="System Design & Enterprise Architecture | Mayur Bakale"
-  description="Architecture blueprints, production code, and engineering patterns for full stack, cloud-native, and AI systems by Mayur Bakale."
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={homeCanonicalURL}
+  tags={allTags}
+  structuredData={[blogSchema, itemListSchema]}
 >
   <Header />
 
   <main class="max-w-3xl mx-auto px-6 py-8 w-full flex-grow">
-    <h1 class="sr-only">System Design &amp; Enterprise Architecture Articles</h1>
+    <section class="pb-8 border-b border-slate-200">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-3">
+        System Design &amp; Enterprise Architecture Blueprints
+      </h1>
+      <p class="text-base md:text-lg text-slate-600 leading-relaxed">
+        Production-grade architectural patterns, distributed systems deep dives, and reference implementations covering <strong>Agentic AI</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>Java 21 Virtual Threads</strong>, <strong>Spring AI</strong>, and <strong>Core Banking Resiliency</strong>.
+      </p>
+    </section>
 
     {displayPosts.length > 0 ? (
-      <div>
+      <section aria-label="Published Architecture Articles">
         {displayPosts.map((post) => (
           <PostCard 
             slug={post.slug}
@@ -47,7 +111,7 @@ const displayPosts = posts.map((post) => ({
             tags={post.tags}
           />
         ))}
-      </div>
+      </section>
     ) : (
       <p class="py-16 text-center text-slate-500">No articles have been published yet.</p>
     )}

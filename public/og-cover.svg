@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="60" y="60" width="1080" height="510" rx="16" fill="none" stroke="#334155" stroke-width="2" />
+  <circle cx="115" cy="130" r="10" fill="#2563eb" />
+  <text x="140" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22" fill="#94a3b8">
+    MAYUR BAKALE • ENTERPRISE ARCHITECTURE BLUEPRINTS
+  </text>
+  <text x="105" y="255" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="56" font-weight="700" fill="#f8fafc">
+    System Design &amp; Enterprise
+  </text>
+  <text x="105" y="330" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="56" font-weight="700" fill="#60a5fa">
+    AI Architecture
+  </text>
+  <text x="105" y="415" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="26" fill="#cbd5e1">
+    Production Patterns for Distributed Systems, Java 21 Virtual Threads, Spring AI &amp; MCP
+  </text>
+  <text x="105" y="510" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" fill="#64748b">
+    mayurbakale-labs.github.io/system-architecture-blogs
+  </text>
+</svg>
+

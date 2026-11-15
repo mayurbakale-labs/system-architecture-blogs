@@ -1,5 +1,6 @@
 ---
 title: "Distributed Sagas with the Transactional Outbox Pattern: Architecting High-Volume Banking Ledgers"
+description: "Eliminate distributed two-phase commit (2PC) bottlenecks in high-volume core banking ledgers using Distributed Sagas, the Transactional Outbox Pattern, Kafka, and Java."
 publishDate: 2026-10-11
 complexity: "Advanced"
 author: "Mayur Bakale"

@@ -1,32 +1,55 @@
 ---
-// Header component with navigation
+// Header component with semantic navigation for search engines and readers
 interface Props {
   title?: string;
   subtitle?: string;
 }
 
-const { title = "System Design & Architecture", subtitle = "Mayur Bakale • Full Stack, Cloud-Native & AI" } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const {
+  title = "System Design & Architecture",
+  subtitle = "Mayur Bakale • Full Stack, Cloud-Native & AI",
+} = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 ---
 
-<header class="border-b border-slate-200 bg-slate-50/90 backdrop-blur-md sticky top-0 z-50">
-  <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+<header
+  class="border-b border-slate-200 bg-slate-50/90 backdrop-blur-md sticky top-0 z-50"
+>
+  <div
+    class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between gap-4"
+  >
     <div>
-      <a href={`${baseUrl}`} class="text-lg font-bold tracking-tight text-slate-900 hover:text-blue-600 transition flex items-center gap-2">
+      <a
+        href={`${baseUrl}`}
+        class="text-lg font-bold tracking-tight text-slate-900 hover:text-blue-600 transition flex items-center gap-2"
+      >
         <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
         {title}
       </a>
       <p class="text-xs text-slate-500 font-mono">{subtitle}</p>
     </div>
-    <div class="flex items-center gap-3">
-      <a 
-        href="https://github.com/mayurbakale-labs/system-architecture-blogs" 
-        target="_blank" 
-        rel="noreferrer" 
+    <nav aria-label="Primary navigation" class="flex items-center gap-4">
+      <a
+        href={`${baseUrl}`}
+        class="text-xs font-mono text-slate-700 hover:text-blue-600 transition"
+      >
+        Articles
+      </a>
+      <a
+        href={`${baseUrl}rss.xml`}
+        class="text-xs font-mono text-slate-700 hover:text-blue-600 transition"
+        title="Subscribe via RSS"
+      >
+        RSS
+      </a>
+      <a
+        href="https://github.com/mayurbakale-labs/system-architecture-blogs"
+        target="_blank"
+        rel="noopener noreferrer"
         class="text-xs font-mono text-blue-600 hover:text-blue-500 underline underline-offset-4"
       >
-        GitHub Repository &rarr;
+        GitHub &rarr;
       </a>
-    </div>
+    </nav>
   </div>
 </header>
