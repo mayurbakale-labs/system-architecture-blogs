@@ -11,7 +11,7 @@ function escapeXml(unsafe: string): string {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-  const siteOrigin = site ? site.toString().replace(/\/?$/, '') : 'https://mayurbakale-labs.github.io';
+  const siteOrigin = site ? site.toString().replace(/\/?$/, '') : 'https://mayurdb-blogs.in';
   const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   const homeUrl = new URL(baseUrl, siteOrigin).toString();
   const feedUrl = new URL(`${baseUrl}rss.xml`, siteOrigin).toString();

@@ -17,7 +17,7 @@ try {
 }
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/?$/, '') : 'https://mayurbakale-labs.github.io';
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/?$/, '') : 'https://mayurdb-blogs.in';
 const homeCanonicalURL = new URL(baseUrl, siteOrigin).toString();
 
 const displayPosts = posts.map((post) => ({

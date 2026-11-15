@@ -1,13 +1,10 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
-// 1. Import the React integration
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://mayurbakale-labs.github.io',
-  base: '/system-architecture-blogs/',
-  
-  // 2. Add react() to the integrations array
+  site: 'https://mayurdb-blogs.in',
+  base: '/',
   integrations: [mdx(), tailwind(), react()],
 });
