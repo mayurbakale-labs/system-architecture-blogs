@@ -1,14 +1,13 @@
 ---
 title: "The Impending Horizon: Superhuman AI, Economic Obsolescence, and the Future of Human Labor"
 description: "An exhaustive analysis synthesizing recent technical milestones in machine learning, internal corporate labor shifts at frontier AI labs, and the macroeconomic models attempting to quantify this disruption."
-pubDate: "2026-11-18"
-level: "Advanced"
+publishDate: 2026-11-18
+complexity: "Advanced"
 author: "Mayur Bakale"
-tags:
- * Agentic AI
- * AI Research
- * Macroeconomics
- * System Design
+date: "2026-11-18"
+tags: ["Agentic AI", "AI Research", "Macroeconomics", "System Design"]
+target_audience: "Everyone"
+status: "READY"
 ---
 
 # The Impending Horizon: Superhuman AI, Economic Obsolescence, and the Future of Human Labor
